@@ -9,5 +9,4 @@ import HelloWorld from '@/components/HelloWorld.vue'
   </div>
 </template>
 
-<style>
-</style>
+<style></style>
