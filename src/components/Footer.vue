@@ -1,6 +1,6 @@
 <template>
-    <footer>
-        <div class="flex items-center justify-evenly">
+    <footer class="mx-auto w-full max-w-md px-4 py-2">
+        <div class="flex w-full items-center justify-evenly">
             <p class="text-sm font-medium text-[var(--muted-txt)] hover:text-[var(--primary-txt)]">
                 Copyright © 2025 Stock App
             </p>
