@@ -15,7 +15,7 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <form class="flex h-full min-h-full flex-auto" @submit.prevent="handleSubmit" :name="name">
+    <form class="flex h-full min-h-full flex-auto" @submit.prevent="handleSubmit" :id="name">
         <slot />
     </form>
 </template>

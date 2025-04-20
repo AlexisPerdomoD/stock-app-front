@@ -34,10 +34,8 @@ const onBlur = () => {
     showError.value = !isValid.value && !props.disabled && !props.readonly && value.value !== ''
 }
 
-const onInput = (e: Event) => {
-    value.value = (e.target as HTMLInputElement).value
+const onInput = () => {
     isValid.value = props.validatecb(value.value)
-
     emits('update:valid', isValid.value)
     emits('update:value', value.value)
 }
@@ -47,6 +45,7 @@ const showError = ref(false)
 
 <template>
     <input
+        v-model="value"
         class="w-full rounded-md border border-[var(--secondary-border)] bg-[var(--input-background)] px-3 py-2 text-[var(primary-txt)] focus:ring-2 focus:ring-[var(--ring-primary)] focus:outline-none"
         :class="showError ? 'border-[var(--error-color)] ring-2 ring-[var(--error-color)]' : ''"
         @focus="onFocus"
@@ -54,10 +53,9 @@ const showError = ref(false)
         @input="onInput"
         :disabled="disabled"
         :readonly="readonly"
-        :name="name"
+        :id="name"
         :placeholder="placeholder"
         :type="type"
-        :value="value"
         :required="required"
     />
 </template>

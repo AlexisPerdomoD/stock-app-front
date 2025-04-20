@@ -39,6 +39,7 @@ async function handleSubmit() {
 </script>
 
 <template>
+    <ErrorModal v-if="error" @close="error = null" :error="error" />
     <section class="flex flex-col items-center justify-center p-4">
         <div class="mb-8 text-center">
             <div class="flex items-center justify-center">
@@ -48,8 +49,6 @@ async function handleSubmit() {
             <p class="mt-2 text-gray-400">Track stocks with precision</p>
         </div>
 
-        <ErrorModal v-if="error" @close="error = null" :error="error" />
-
         <Tabs :tabs="['Sign In', 'Sign Up']" :default="option" @update:value="updateOption" />
 
         <Form name="login" :submitcb="handleSubmit" @isSubmitting="isSubmitting = $event">
@@ -58,13 +57,14 @@ async function handleSubmit() {
                     <label for="username" class="flex w-full flex-col gap-1"
                         ><span class="text-sm font-medium text-gray-300">Email </span>
                         <FormInputText
+                            type="text"
+                            name="username"
+                            placeholder="alexis@example.com"
                             @update:value="formData.username = $event"
                             @update:valid="validUsername = $event"
                             :default="formData.username"
-                            name="username"
-                            placeholder="alexis@example.com"
                             :validatecb="validateUsername"
-                            type="text"
+                            :readonly="isSubmitting"
                         />
                     </label>
 
@@ -72,13 +72,14 @@ async function handleSubmit() {
                         ><span class="text-sm font-medium text-gray-300">Password</span>
 
                         <FormInputText
+                            type="password"
+                            name="password"
+                            placeholder="**********"
                             :default="formData.password"
                             @update:value="formData.password = $event"
                             @update:valid="validPassword = $event"
-                            name="password"
-                            placeholder="**********"
                             :validatecb="validatePassowrd"
-                            type="password"
+                            :readonly="isSubmitting"
                         />
                     </label>
                 </section>
@@ -86,6 +87,7 @@ async function handleSubmit() {
                 <PrimaryBtn
                     :text="isSubmitting ? 'Loading...' : 'Confirm'"
                     type="submit"
+                    form="login"
                     :disabled="!validUsername || !validPassword || isSubmitting"
                 />
             </section>

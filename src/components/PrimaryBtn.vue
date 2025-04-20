@@ -26,7 +26,7 @@ defineEmits<{
         @change="$emit('change', $event)"
         :disabled="disabled"
         :form="form"
-        class="w-full rounded-md bg-[var(--primary-btn)] px-4 py-2 font-medium text-[var(--primary-txt)] transition-colors hover:bg-[var(--primary-btn-hover)] focus:ring-2 focus:ring-[var(--ring-primary)] focus:ring-offset-2 focus:ring-offset-[var(--ring-primary-offset)] focus:outline-none"
+        class="w-full rounded-md bg-[var(--primary-btn)] px-4 py-2 font-medium text-[var(--primary-txt)] transition-colors hover:bg-[var(--primary-btn-hover)] focus:ring-2 focus:ring-[var(--ring-primary)] focus:ring-offset-2 focus:ring-offset-[var(--ring-primary-offset)] focus:outline-none disabled:bg-[var(--primary-btn-disabled)]"
     >
         {{ text }}
     </button>
