@@ -3,19 +3,19 @@ import { computed, ref, watch } from 'vue'
 
 const props = defineProps<{
     tabs: string[]
-    modelValue?: string
+    default?: string
 }>()
 
 const emit = defineEmits<{
-    (e: 'update:modelValue', value: string): void
+    (e: 'update:value', value: string): void
 }>()
 
-const internalTabValue = ref(props.modelValue ?? props.tabs[0])
+const internalTabValue = ref(props.default ?? props.tabs[0])
 
 const tabs = computed(() => props.tabs)
 
 watch(
-    () => props.modelValue,
+    () => props.default,
     (val) => {
         if (val) internalTabValue.value = val
     }
@@ -23,7 +23,7 @@ watch(
 
 const setActive = (tab: string) => {
     internalTabValue.value = tab
-    emit('update:modelValue', tab)
+    emit('update:value', tab)
 }
 
 const isActive = (tab: string) => internalTabValue.value === tab
