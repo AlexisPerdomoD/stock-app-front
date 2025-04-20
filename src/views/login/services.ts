@@ -14,13 +14,12 @@ export enum Strategy {
 export async function loginService(strategy: Strategy, user: User): Promise<Result<null>> {
     try {
         const url = strategy === Strategy.Register ? `${API_URL}/users` : `${API_URL}/users/login`
-
         const res = await fetch(url, {
-            method: 'POST',
+            method: 'post',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify({ email: user.username, password: user.password })
         })
 
         if (!res.ok) {
@@ -39,7 +38,6 @@ export async function loginService(strategy: Strategy, user: User): Promise<Resu
         }
 
         sessionStorage.setItem(APi_SESSION_KEY, payload.session)
-
         return {
             ok: true,
             data: null
