@@ -12,7 +12,7 @@ defineProps<{
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div
             v-for="stock in stocks"
-            :key="stock.id"
+            :key="stock.ticker"
             @click="onStockClick(stock)"
             class="hover:bg-gray-750 cursor-pointer rounded-lg border border-gray-700 bg-gray-800 p-4 transition-colors"
         >
