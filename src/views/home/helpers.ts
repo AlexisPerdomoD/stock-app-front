@@ -89,6 +89,12 @@ export class SearchQueryHandler {
     setFilter(key: keyof StockFilters, value: StockFilters[keyof StockFilters]) {
         const query = { ...this._route.query }
 
+        // reset page to 1 when changing filters
+        if (key !== 'page') {
+            this._filters.value.page = 1
+            query['page'] = '1'
+        }
+
         if (!value) {
             delete query[key]
         } else {
