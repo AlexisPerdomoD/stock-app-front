@@ -1,10 +1,11 @@
 import type { Ref } from 'vue'
 
-import { getStockService } from '@/shared/services/get-stock'
-import { removeStockService } from '@/shared/services/remove-stock'
-import { saveStockService } from '@/shared/services/save-stock'
+import { getStockService } from '@shared/services/get-stock'
+import { removeStockService } from '@shared/services/remove-stock'
+import { saveStockService } from '@shared/services/save-stock'
 import type { Err, Nullable } from '@shared/types'
-import type { Stock } from '@shared/types/stocks'
+import { Action } from '@shared/types/recommendations'
+import { type Stock, Tendency } from '@shared/types/stocks'
 
 export async function toggleSavedCb(
     stock: Ref<Nullable<Stock>>,
@@ -33,4 +34,28 @@ export async function toggleSavedCb(
 
     stock.value = update.data
     loading.value = false
+}
+
+export const mapAction = (action: Action) => {
+    switch (action) {
+        case Action.Buy:
+            return 'Buy'
+        case Action.Sell:
+            return 'Sell'
+        case Action.Hold:
+            return 'Hold'
+        default:
+            return 'Neutral'
+    }
+}
+
+export const mapTendency = (tendency: Tendency) => {
+    switch (tendency) {
+        case Tendency.Up:
+            return 'Up'
+        case Tendency.Down:
+            return 'Down'
+        default:
+            return 'Neutral'
+    }
 }
