@@ -8,7 +8,16 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: Home,
+            props: (route) => ({
+                search: route.query.search,
+                orderby: route.query.orderby,
+                lower: route.query.lower,
+                greater: route.query.greater,
+                page: route.query.page,
+                limit: route.query.limit,
+                byUser: route.query.byuser === 'true'
+            })
         },
         {
             path: '/login',
@@ -16,7 +25,7 @@ const router = createRouter({
             // route level code-splitting
             // this generates a separate chunk (About.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
-            component: ()=> import("@views/login/index.vue")
+            component: () => import('@views/login/index.vue')
         }
     ]
 })
