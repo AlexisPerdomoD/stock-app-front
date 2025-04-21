@@ -4,9 +4,9 @@ import Footer from './components/Footer.vue'
 
 <template>
     <section class="min-h-screen bg-[var(--secondary-background)]">
-        <main class="min-h-[90vh]">
+        <section class="min-h-[90vh]">
             <RouterView />
-        </main>
+        </section>
         <Footer />
     </section>
 </template>
