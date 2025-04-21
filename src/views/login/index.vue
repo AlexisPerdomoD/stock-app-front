@@ -1,26 +1,33 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onBeforeMount, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import Form from '@/components/Form.vue'
-import FormInputText from '@/components/FormInputText.vue'
-import type { Nullable } from '@/types'
 import ErrorModal from '@components/ErrorModal.vue'
+import Form from '@components/Form.vue'
+import FormInputText from '@components/FormInputText.vue'
 import PrimaryBtn from '@components/PrimaryBtn.vue'
 import Tabs from '@components/Tabs.vue'
 import AppLogo from '@components/icons/AppLogo.vue'
+import { APi_SESSION_KEY } from '@shared/constants'
+import type { Nullable } from '@shared/types'
 
-import { Strategy, type User, loginService, validatePassowrd, validateUsername } from './services'
+import { validatePassowrd, validateUsername } from './helpers'
+import { Strategy, type User, loginService } from './services'
 
-const option = ref<string>('Sign In')
+const router = useRouter()
 
-function updateOption(opt: string) {
-    option.value = opt
-}
+onBeforeMount(() => {
+    if (sessionStorage.getItem(APi_SESSION_KEY)) {
+        router.push('/')
+    }
+})
 
 const validPassword = ref<boolean>(false)
 const validUsername = ref<boolean>(false)
 const isSubmitting = ref<boolean>(false)
+
 const error = ref<Nullable<string>>(null)
+const option = ref<string>('Sign In')
 
 const formData = reactive<User>({
     username: '',
@@ -31,10 +38,14 @@ async function handleSubmit() {
     error.value = null
     const strategy = option.value === 'Sign In' ? Strategy.Login : Strategy.Register
     const res = await loginService(strategy, formData)
-    if (res.ok) {
-        throw new Error('Not implemented')
+
+    if (!res.ok) {
+        error.value = res.message
+
+        return
     }
-    error.value = res.message
+
+    router.push('/')
 }
 </script>
 
@@ -49,7 +60,7 @@ async function handleSubmit() {
             <p class="mt-2 text-gray-400">Track stocks with precision</p>
         </div>
 
-        <Tabs :tabs="['Sign In', 'Sign Up']" :default="option" @update:value="updateOption" />
+        <Tabs :tabs="['Sign In', 'Sign Up']" :default="option" @update:value="option = $event" />
 
         <Form name="login" :submitcb="handleSubmit" @isSubmitting="isSubmitting = $event">
             <section class="flex flex-col items-center justify-between gap-4">

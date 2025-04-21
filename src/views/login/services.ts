@@ -1,5 +1,5 @@
-import { API_URL, APi_SESSION_KEY } from '@/constants'
-import { ApiError, type Result } from '@/types'
+import { API_URL, APi_SESSION_KEY } from '@shared/constants'
+import { ApiError, type Result } from '@shared/types'
 
 export type User = {
     username: string
@@ -58,8 +58,3 @@ export async function loginService(strategy: Strategy, user: User): Promise<Resu
         }
     }
 }
-
-export const validatePassowrd = (password: string) => password.length > 8
-
-export const validateUsername = (username: string) =>
-    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(username)
