@@ -20,11 +20,14 @@ const router = createRouter({
             })
         },
         {
+            path: '/stock/:stockID',
+            name: 'stock-detail',
+            props: true,
+            component: () => import('@views/stock-detail/index.vue')
+        },
+        {
             path: '/login',
             name: 'login',
-            // route level code-splitting
-            // this generates a separate chunk (About.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
             component: () => import('@views/login/index.vue')
         }
     ]
