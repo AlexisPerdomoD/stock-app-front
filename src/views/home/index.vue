@@ -63,7 +63,8 @@ watch(
 )
 
 const onStockClick = (stock: Stock) => {
-    console.log('Clicked on stock:', stock)
+    console.log(stock.id)
+    router.push(`/stock/${stock.id}`)
 }
 </script>
 
